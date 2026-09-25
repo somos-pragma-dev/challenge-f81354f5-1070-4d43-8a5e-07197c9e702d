@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: loan-management
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:h2:mem:loan_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: INFO
+    com.pragma.loanmanagement: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/loans
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Configuración para notificaciones
+notification:
+  email:
+    enabled: true
+    host: smtp.example.com
+    port: 587
+    username: user@example.com
+    password: password
+    from: no-reply@example.com
+  sms:
+    enabled: false
+    provider-url: https://api.smsprovider.com/send
+    api-key: your-api-key
+    from-number: +1234567890
